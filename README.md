@@ -1,0 +1,2 @@
+# wazoop
+My Wazuh rules
