@@ -13,3 +13,5 @@ reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription /v Ena
 # Enable ADCS Auditing
 auditpol /set /Category:"Object Access" /subcategory:"Certification Services" /success:enable /failure:enable
 
+# Enable Process Execution Logging
+auditpol /set /Category:"Detailed Tracking" /subcategory:"Process Creation" /success:enable /failure:enable
