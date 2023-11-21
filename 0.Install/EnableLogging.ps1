@@ -65,3 +65,5 @@ $modifiedContent += ($csvContent[1..($csvContent.Count - 1)] | Where-Object { $_
 $modifiedContent | Set-Content -Path $temp_path\audit.csv
 # cp "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv.bak"
 mv $temp_path\audit.csv "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" -force
+
+gpupdate /force
