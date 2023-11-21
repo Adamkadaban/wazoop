@@ -19,3 +19,7 @@ auditpol /set /Category:"Detailed Tracking" /subcategory:"Process Creation" /suc
 # Enable Account Logon/Logoff Logging
 auditpol /set /Category:"Logon/Logoff" /subcategory:"Logon" /success:enable /failure:enable
 auditpol /set /Category:"Logon/Logoff" /subcategory:"Logoff" /success:enable /failure:enable
+
+# Enable File System Object Auditing
+auditpol /set /Category:"Object Access" /subcategory:"File System" /success:enable /failure:enable
+
