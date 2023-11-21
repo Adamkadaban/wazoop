@@ -27,3 +27,5 @@ auditpol /set /Category:"Object Access" /subcategory:"File System" /success:enab
 auditpol /set /Category:"Account Logon" /subcategory:"Kerberos Service Ticket Operations" /success:enable /failure:enable
 auditpol /set /Category:"Account Logon" /subcategory:"Kerberos Authentication Service" /success:enable /failure:enable
 
+# Enable Event Log Access Auditing
+auditpol /set /Category:"System" /subcategory:"System Integrity" /success:enable /failure:enable
