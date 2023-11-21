@@ -15,3 +15,7 @@ auditpol /set /Category:"Object Access" /subcategory:"Certification Services" /s
 
 # Enable Process Execution Logging
 auditpol /set /Category:"Detailed Tracking" /subcategory:"Process Creation" /success:enable /failure:enable
+
+# Enable Account Logon/Logoff Logging
+auditpol /set /Category:"Logon/Logoff" /subcategory:"Logon" /success:enable /failure:enable
+auditpol /set /Category:"Logon/Logoff" /subcategory:"Logoff" /success:enable /failure:enable
