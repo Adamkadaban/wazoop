@@ -23,3 +23,7 @@ auditpol /set /Category:"Logon/Logoff" /subcategory:"Logoff" /success:enable /fa
 # Enable File System Object Auditing
 auditpol /set /Category:"Object Access" /subcategory:"File System" /success:enable /failure:enable
 
+# Enable Kerberos Logging
+auditpol /set /Category:"Account Logon" /subcategory:"Kerberos Service Ticket Operations" /success:enable /failure:enable
+auditpol /set /Category:"Account Logon" /subcategory:"Kerberos Authentication Service" /success:enable /failure:enable
+
