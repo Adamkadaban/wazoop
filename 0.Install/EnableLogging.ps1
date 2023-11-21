@@ -57,6 +57,17 @@ auditpol /set /Subcategory:"Directory Service Replication" /success:enable /fail
 $hostname = [System.Net.Dns]::GetHostName()
 $temp_path = "C:\Users\Administrator\AppData\Local\Temp" # This is probs not good, but I couldn't figure out how to resolve 8.3 paths in powershell
 
+$directoryPath = "$env:systemroot\System32\GroupPolicy\Machine\Microsoft\Windows NT\Audit"
+
+# Check if the directory exists
+if (-not (Test-Path $directoryPath)) {
+    # Create the directory if it doesn't exist
+    New-Item -Path $directoryPath -ItemType Directory -Force
+    Write-Host "Directory created: $directoryPath"
+} else {
+    Write-Host "Directory already exists: $directoryPath"
+}
+
 auditpol /backup /file:$temp_path\localpol.csv
 (gc $temp_path\localpol.csv) -replace $hostname, '' | Out-File $temp_path\audit_pre.csv
 $csvContent = gc $temp_path\audit_pre.csv
@@ -64,6 +75,6 @@ $modifiedContent = $csvContent[0]
 $modifiedContent += ($csvContent[1..($csvContent.Count - 1)] | Where-Object { $_ -like '*System*' }) -join "`r`n"
 $modifiedContent | Set-Content -Path $temp_path\audit.csv
 # cp "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv.bak"
-mv $temp_path\audit.csv "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" -force
+mv $temp_path\audit.csv "$env:systemroot\System32\GroupPolicy\Machine\Microsoft\Windows NT\Audit\audit.csv" -force
 
 gpupdate /force
