@@ -8,7 +8,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 echo "##########################################"
-echo "#          Installing Indexer            #"
+echo "#           Installing Indexer           #"
 echo "##########################################"
 
 cd /root
@@ -24,3 +24,15 @@ bash wazuh-install.sh --wazuh-indexer node-1
 bash wazuh-install.sh --start-cluster
 
 
+echo "##########################################"
+echo "#            Installing Server           #"
+echo "##########################################"
+
+bash wazuh-install.sh --wazuh-server wazuh-1
+
+echo "##########################################"
+echo "#          Installing Dashboard          #"
+echo "##########################################"
+
+bash wazuh-install.sh --wazuh-dashboard dashboard
+tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
