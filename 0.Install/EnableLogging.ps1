@@ -58,6 +58,10 @@ $hostname = [System.Net.Dns]::GetHostName()
 $temp_path = "C:\Users\Administrator\AppData\Local\Temp" # This is probs not good, but I couldn't figure out how to resolve 8.3 paths in powershell
 
 auditpol /backup /file:$temp_path\localpol.csv
-(gc $temp_path\localpol.csv) -replace $hostname, '' | Out-File $temp_path\audit.csv
-cp "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv.bak"
+(gc $temp_path\localpol.csv) -replace $hostname, '' | Out-File $temp_path\audit_pre.csv
+$csvContent = gc $temp_path\audit_pre.csv
+$modifiedContent = $csvContent[0]
+$modifiedContent += ($csvContent[1..($csvContent.Count - 1)] | Where-Object { $_ -like '*System*' }) -join "`r`n"
+$modifiedContent | Set-Content -Path $temp_path\audit.csv
+# cp "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv.bak"
 mv $temp_path\audit.csv "$env:systemroot\system32\grouppolicy\machine\microsoft\windows nt\audit\audit.csv" -force
