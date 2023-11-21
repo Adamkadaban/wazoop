@@ -1,2 +1,2 @@
 # wazoop
-My Wazuh rules
+My Wazuh rules and setup scripts
