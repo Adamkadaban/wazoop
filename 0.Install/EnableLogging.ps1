@@ -15,7 +15,7 @@ reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription /v Ena
 # https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-audit-policy-change
 
 
-auditpol /clear
+auditpol /clear /y
 
 # First, we need to set local policy with auditpol
 
