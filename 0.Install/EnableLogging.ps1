@@ -54,6 +54,9 @@ auditpol /set /Subcategory:"User Account Management" /success:enable /failure:en
 auditpol /set /Subcategory:"Directory Service Replication" /success:enable /failure:enable
 # auditpol /set /Subcategory:"Detailed Directory Service Replication" /success:enable /failure:enable
 
+## Enable Task Scheduler History
+wevtutil set-log Microsoft-Windows-TaskScheduler/Operational /enabled:true
+
 # Now, we backup the local policy and set it to the group policy 
 
 $hostname = [System.Net.Dns]::GetHostName()
