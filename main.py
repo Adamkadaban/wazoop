@@ -10,10 +10,6 @@ from pypsrp.wsman import WSMan
 from pypsrp.powershell import PowerShell, RunspacePool
 from pypsrp.exceptions import AuthenticationError, WinRMTransportError
 
-
-# TODO: add support for diff protocols
-#	   basic, certificate, negotiate, kerberos, credssp
-
 def parse_arguments():
 	parser = argparse.ArgumentParser(description="Script to execute PowerShell commands remotely.")
 	parser.add_argument("-c", "--config", help="Path to YAML configuration file")
