@@ -1,0 +1,8 @@
+username: your_username
+password: your_password
+host: your_host
+ssl: true  # Optional, set to true if SSL should be used
+scripts:
+  - path/to/script1.ps1
+  - path/to/script2.ps1
+  - path/to/script3.ps1
