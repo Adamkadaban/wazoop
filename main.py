@@ -1,12 +1,18 @@
 import argparse
 import getpass
 import yaml
+import time
+import logging
+from termcolor import colored
 from pypsrp.client import Client
 from pypsrp.shell import Process, SignalCode, WinRS
 from pypsrp.wsman import WSMan
 from pypsrp.powershell import PowerShell, RunspacePool
 from pypsrp.exceptions import AuthenticationError, WinRMTransportError
 
+
+# TODO: add support for diff protocols
+#	   basic, certificate, negotiate, kerberos, credssp
 
 def parse_arguments():
 	parser = argparse.ArgumentParser(description="Script to execute PowerShell commands remotely.")
@@ -44,10 +50,8 @@ def main():
 		host = args.host or config['host']
 		ssl = args.ssl if args.ssl is not None else config.get('ssl', False)
 
-		wsman = WSMan(host, ssl=ssl, auth="negotiate", username=username, password=password)
-
-		for script_path in config.get('scripts', []):
-			execute_script(wsman, script_path)
+		scripts = config.get('scripts', [])
+		execute_scripts(username, password, host, ssl, scripts)
 
 	else:
 		username = args.username
@@ -55,10 +59,8 @@ def main():
 		host = args.host
 		ssl = args.ssl
 
-		wsman = WSMan(host, ssl=ssl, auth="negotiate", username=username, password=password)
-
 		script_path = args.script
-		execute_script(wsman, script_path)
+		execute_script(username, password, host, ssl, script_path)
 
 def find_missing_argument(args):
 	if args.config:
@@ -79,30 +81,28 @@ def validate_config(config):
 		if field not in config:
 			raise ValueError(f"Config is missing required field: {field}")
 
-def execute_script(wsman, script_path):
-	print(f'[+] Working on {script_path}')
-	with open(script_path) as fin:
-		script = fin.read()
-
-	# Uncomment the following block if you want to use WinRS instead of RunspacePool
-	# with wsman, WinRS(wsman) as shell:
-	#	 process = Process(shell, "gal gal")
-	#	 process.invoke()
-	#	 print(process.stdout.rstrip().decode())
-	#	 print(process.stderr.rstrip().decode())
-	#	 process.signal(SignalCode.CTRL_C)
+def execute_scripts(username, password, host, ssl, scripts):
+	wsman = WSMan(host, ssl=ssl, auth="negotiate", username=username, password=password)
 
 	try:
 		with wsman, RunspacePool(wsman) as pool:
-			ps = PowerShell(pool)
-			ps.add_script(script)
-			ps.invoke(['string', 1])
-			for outputObj in ps.output:
-				print(outputObj)
+			for script_path in scripts:
+				print(colored(f'[+] Working on {script_path}', 'blue'))
+
+				with open(script_path) as fin:
+					script = fin.read()
+
+				ps = PowerShell(pool)
+				ps.add_script(script)
+				ps.invoke(['string', 1])
+				for outputObj in ps.output:
+					print(outputObj)
 	except AuthenticationError as err:
-		print(f'[-] {str(err)}')
+		print(colored(f'[-] {str(err)}', 'red'))
+		exit(-1)
+	except WinRMTransportError as err:
+		print(colored(f'[-] {str(err)}', 'red'))
 		exit(-1)
 
-		
 if __name__ == "__main__":
 	main()
