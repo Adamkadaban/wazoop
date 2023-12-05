@@ -22,6 +22,7 @@ def parse_arguments():
 	parser.add_argument("-p", "--password", help="Password for remote host (will prompt if not provided)")
 	parser.add_argument("-S", "--ssl", action="store_true", help="Use SSL for connection")
 	parser.add_argument("-s", "--script", help="Path to PowerShell script file")
+	parser.add_argument("-a", "--auth", choices=["basic", "certificate", "negotiate", "kerberos", "credssp"], help="Authentication protocol to use. Negotiate by default")
 	return parser.parse_args()
 
 def read_config(config_path):
@@ -49,9 +50,10 @@ def main():
 		password = args.password or config['password']
 		host = args.host or config['host']
 		ssl = args.ssl if args.ssl is not None else config.get('ssl', False)
+		auth = args.auth if args.auth is not None else config.get('auth', 'negotiate')
 
 		scripts = config.get('scripts', [])
-		execute_scripts(username, password, host, ssl, scripts)
+		execute_scripts(username, password, host, ssl, auth, scripts)
 
 	else:
 		username = args.username
@@ -81,8 +83,13 @@ def validate_config(config):
 		if field not in config:
 			raise ValueError(f"Config is missing required field: {field}")
 
-def execute_scripts(username, password, host, ssl, scripts):
-	wsman = WSMan(host, ssl=ssl, auth="negotiate", username=username, password=password)
+	if 'auth' in config:
+		valid_auth_protocols = ["basic", "certificate", "negotiate", "kerberos", "credssp"]
+		if config['auth'] not in valid_auth_protocols:
+			raise ValueError(f"Invalid authentication protocol: {config['auth']}. Supported protocols: {', '.join(valid_auth_protocols)}")
+
+def execute_scripts(username, password, host, ssl, auth, scripts):
+	wsman = WSMan(host, ssl=ssl, auth=auth, username=username, password=password)
 
 	try:
 		with wsman, RunspacePool(wsman) as pool:
