@@ -19,20 +19,20 @@ sed -i 's/<indexer-node-ip>/127.0.0.1/g' config.yml
 sed -i 's/<wazuh-manager-ip>/127.0.0.1/g' config.yml
 sed -i 's/<dashboard-node-ip>/127.0.0.1/g' config.yml
 
-bash wazuh-install.sh --generate-config-files
-bash wazuh-install.sh --wazuh-indexer node-1
-bash wazuh-install.sh --start-cluster
+bash wazuh-install.sh --generate-config-files -i
+bash wazuh-install.sh --wazuh-indexer node-1 -i
+bash wazuh-install.sh --start-cluster -i
 
 
 echo "##########################################"
 echo "#            Installing Server           #"
 echo "##########################################"
 
-bash wazuh-install.sh --wazuh-server wazuh-1
+bash wazuh-install.sh --wazuh-server wazuh-1 -i
 
 echo "##########################################"
 echo "#          Installing Dashboard          #"
 echo "##########################################"
 
-bash wazuh-install.sh --wazuh-dashboard dashboard
+bash wazuh-install.sh --wazuh-dashboard dashboard -i
 tar -O -xvf wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
