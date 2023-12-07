@@ -12,8 +12,8 @@ echo "#           Installing Indexer           #"
 echo "##########################################"
 
 cd /root
-curl -sO https://packages.wazuh.com/4.6/wazuh-install.sh
-curl -sO https://packages.wazuh.com/4.6/config.yml
+curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
+curl -sO https://packages.wazuh.com/4.7/config.yml
 
 sed -i 's/<indexer-node-ip>/127.0.0.1/g' config.yml
 sed -i 's/<wazuh-manager-ip>/127.0.0.1/g' config.yml
