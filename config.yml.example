@@ -2,6 +2,7 @@ username: your_username
 password: your_password
 host: your_host
 ssl: true  # Optional, set to true if SSL should be used
+auth: basic # Optional, set to negotiate by default
 scripts:
   - path/to/script1.ps1
   - path/to/script2.ps1
