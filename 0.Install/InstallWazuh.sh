@@ -7,6 +7,10 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+echo "If running with 4gb ram, this will take ~5-10 minutes"
+echo "If running with insufficient resources... good luck"
+echo ""
+
 echo "##########################################"
 echo "#           Installing Indexer           #"
 echo "##########################################"
