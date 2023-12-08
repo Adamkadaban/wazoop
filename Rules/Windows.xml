@@ -3,6 +3,7 @@
 	<!-- Kerberoasting -->
 
 	<rule id="130000" level="15">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4768$</field>
 		<!-- <field name="win.eventdata.targetUserName">wskinner|scully|mulder|thomasin.coorington</field> -->
 		<options>no_full_log</options>
@@ -10,6 +11,7 @@
 	</rule>
 
 	<rule id="130001" level="15">
+		<if_sid>60103</if_sid>
 	    <field name="win.system.eventID">^4769$</field>
 	    <!-- <field name="win.eventdata.serviceName">kroastServiceAccount|mreynolds</field> -->
 	    <options>no_full_log</options>
@@ -19,26 +21,31 @@
 	<!-- ADCS -->
 
 	<rule id="130100" level="12">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4886$</field>
 		<options>no_full_log</options>
 		<description>ADCS received a certificate request. Attack may be attempted</description>
 	</rule>
 	<rule id="130101" level="15">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4887$</field>
 		<options>no_full_log</options>
 	<description>ADCS approved a certificate request. Attack may be successful</description>
 	</rule>
 	<rule id="130102" level="15">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4895$</field>
 		<options>no_full_log</options>
 		<description>ADCS Published a certificate. This may indicate ESC4 exploitation</description>
 	</rule>
 	<rule id="130103" level="12">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4898$</field>
 		<options>no_full_log</options>
 		<description>ADCS loaded a template. Attack may be in progress</description>
 	</rule>
 	<rule id="130104" level="15">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4900$</field>
 		<options>no_full_log</options>
 		<description>ADCS template has been updated. ESC4 may be successful</description>
@@ -47,6 +54,7 @@
 	<!-- Process Execution -->
 
 	<rule id="130200" level="1">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4688$</field>
 		<options>no_full_log</options>
 		<description>Process $(win.eventData.newProcessName) being executed!</description>
@@ -56,6 +64,7 @@
 	<!-- find /opt/SharpCollection/ -name "*.exe" | sort | uniq | cut -d '/' -f 5 | less | tr '\n' '|' -->
 	<rule id="130201" level="15">
 		<if_sid>130200</if_sid>
+		<if_sid>60103</if_sid>
 		<field name="win.eventData.newProcessName">Certify.exe|GodPotato.exe|mimikatz.exe|PrintSpoofer.exe|Rubeus.exe|SharpView.exe|ADCSPwn.exe|ADFSDump.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|sharpshares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|ThunderFox.exe|TokenStomp.exe|Watson.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpBlock.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|ThunderFox.exe|TokenStomp.exe|Watson.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpBlock.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|ThunderFox.exe|TokenStomp.exe|Watson.exe|winPEAS.exe|WMIReg.exe|ADCSPwn.exe|ADFSDump.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|sharpshares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBlock.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBlock.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDoor.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|sharpfiles.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|ADSearch.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|GMSAPasswordReader.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|KrbRelay.exe|KrbRelayUp.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|SauronEye.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpNoPSExec.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSCCM.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpSvc.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|Whisker.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|ADSearch.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|GMSAPasswordReader.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|KrbRelay.exe|KrbRelayUp.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|SauronEye.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpNoPSExec.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSCCM.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpSvc.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|Whisker.exe|winPEAS.exe|WMIReg.exe|ADCollector.exe|ADCSPwn.exe|ADFSDump.exe|ADSearch.exe|AtYourService.exe|BetterSafetyKatz.exe|Certify.exe|DeployPrinterNightmare.exe|EDD.exe|ForgeCert.exe|GMSAPasswordReader.exe|Group3r.exe|Grouper2.exe|Inveigh.exe|KrbRelay.exe|KrbRelayUp.exe|LockLess.exe|PassTheCert.exe|PurpleSharp.exe|Rubeus.exe|_RunasCs.exe|SafetyKatz.exe|SauronEye.exe|scout.exe|SearchOutlook.exe|Seatbelt.exe|SharpAllowedToAct.exe|SharpAppLocker.exe|SharpBypassUAC.exe|SharpChisel.exe|SharpChrome.exe|SharpChromium.exe|SharpCloud.exe|SharpCOM.exe|SharpCookieMonster.exe|SharpCrashEventLog.exe|SharpDir.exe|SharpDPAPI.exe|SharpDump.exe|SharpEDRChecker.exe|SharPersist.exe|SharpExec.exe|SharpGPOAbuse.exe|SharpHandler.exe|SharpHose.exe|SharpHound.exe|SharpKatz.exe|SharpLAPS.exe|SharpMapExec.exe|SharpMiniDump.exe|SharpMove.exe|SharpNamedPipePTH.exe|SharpNoPSExec.exe|SharpPrinter.exe|SharpRDP.exe|SharpReg.exe|SharpSCCM.exe|SharpSearch.exe|SharpSecDump.exe|SharpShares.exe|Sharp-SMBExec.exe|SharpSniper.exe|SharpSphere.exe|SharpSpray.exe|SharpSQLPwn.exe|SharpStay.exe|SharpSvc.exe|SharpTask.exe|SharpUp.exe|SharpView.exe|SharpWebServer.exe|SharpWifiGrabber.exe|SharpWMI.exe|SharpZeroLogon.exe|Shhmon.exe|Snaffler.exe|SqlClient.exe|StandIn.exe|StickyNotesExtract.exe|SweetPotato.exe|ThunderFox.exe|TokenStomp.exe|TruffleSnout.exe|Watson.exe|Whisker.exe|winPEAS.exe|WMIReg.exe|</field>
 		<options>no_full_log</options>
 		<description>Malicious Binary $(win.eventData.newProcessName) being executed!</description>
@@ -64,6 +73,7 @@
 
 	<!-- File Access -->
 	<rule id="130300" level="1">
+		<if_sid>60103</if_sid>
 		<field name="win.system.eventID">^4656$</field>
 		<options>no_full_log</options>
 		<!-- TODO: Add file path in description -->
@@ -86,6 +96,56 @@
 		<description>Possible DLL Injection!. CreateRemoteThread by $(win.eventdata.sourceImage) on $(win.eventdata.targetImage)</description>
 	</rule>
 
+	<!-- Group Membership Modification -->
+
+	<rule id="130500" level="15">
+	</rule>	
+
+	<!-- User Property Modification -->
+	<rule id="130600" level="15">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4720$</field>
+		<options>no_full_log</options>
+		<description>Account $(win.eventdata.samAccountName) was created by $(win.eventdata.subjectUserName)!</description>
+	</rule>	
+
+	<rule id="130601" level="15">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4722$</field>
+		<options>no_full_log</options>
+		<description>Account $(win.eventdata.samAccountName) was enabled by $(win.eventdata.subjectUserName)!</description>
+	</rule>	
+
+	<rule id="130602" level="15">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4738$</field>
+		<options>no_full_log</options>
+		<description>Account $(win.eventdata.samAccountName) was by $(win.eventdata.subjectUserName)!</description>
+	</rule>	
+
+	<rule id="130603" level="15">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4732$</field>
+		<options>no_full_log</options>
+		<description>User account was added to the $(win.eventdata.targetUserName) group by $(win.eventdata.subjectUserName)!</description>
+	</rule>	
+
+	<rule id="130604" level="15">
+		<if_sid>60103</if_sid>
+		<field name="win.system.eventID">^4733$</field>
+		<options>no_full_log</options>
+		<description>User account was removed from the $(win.eventdata.targetUserName) group by $(win.eventdata.subjectUserName)!</description>
+	</rule>	
+
+	<!-- Autoruns -->
+	<rule id="130700" level="15">
+	</rule>
+
+	<!-- PowerShell -->
+	<rule id="130800" level="1">
+		<field name="win.system.eventID">^4104$</field>
+		<options>no_full_log</options>
+	</rule>
 
 
 </group>
